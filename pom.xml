@@ -50,6 +50,7 @@
       </plugin>
     </plugins>
 
+<!--   配置资源路径   -->
     <resources>
       <resource>
         <directory>src/main/java</directory>
