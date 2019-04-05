@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.study2.myBatis1.mapper.BookMapper">
+    <!--插入一条数据-->
+    <insert id="insert" parameterType="top.study2.myBatis1.entity.Book">
+        insert into t_book (title, author, price, press) VALUES (
+        #{title},#{author},#{price},#{press}
+        )
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        delete from t_book where id = #{id}
+    </delete>
+
+    <delete id="deleteByIDs" parameterType="int">
+        delete from t_book where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByListIDs" parameterType="int">
+        delete from t_book where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectById" parameterType="int" resultType="top.study2.myBatis1.entity.Book">
+        select * from t_book where id = #{id}
+    </select>
+
+    <select id="selectAll" resultType="top.study2.myBatis1.entity.Book">
+        select * from t_book
+    </select>
+
+    <select id="getBook" parameterType="java.util.Properties" resultType="top.study2.myBatis1.entity.Book">
+        select * from t_book where author = #{author} and press = #{press}
+    </select>
+
+    <select id="selectByauthorandTitle" parameterType="java.util.Map" resultType="top.study2.myBatis1.entity.Book">
+        select * from t_book where author = #{author} and title = #{title}
+    </select>
+
+<!--    <resultMap type="java.util.Map" id="eMap">
+        <result property="ename" javaType="java.lang.String"/>
+        <result property="sal" javaType="java.lang.Float"/>
+        <result property="job" javaType="java.lang.String"/>
+    </resultMap>
+    <select id="findEmpByCols"  resultMap="eMap" >
+		select ename,job,sal from emp
+	</select>-->
+
+
+    <update id="update" parameterType="top.study2.myBatis1.entity.Book">
+        update t_book set title = #{title},author =#{author},price=#{price},press=#{press} where id = #{id}
+    </update>
+
+</mapper>
